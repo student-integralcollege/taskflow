@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import { connectDB } from './config/db.js';
-import userRoutes from './routes/userRoutes.js';
+import userRouter from './routes/userRoutes.js';
+import taskRouter from './routes/taskRoutes.js';
 
 
 const app = express();
@@ -17,7 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 connectDB();
 
 // Routes
-app.use('/api/user', userRoutes);
+app.use('/api/user', userRouter);
+app.use('/api/task', taskRouter);
+
 
 app.get('/', (req, res) => {
     res.send('API is running...');
