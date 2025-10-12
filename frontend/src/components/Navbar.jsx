@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Settings, Zap, ChevronDown, LogOut } from 'lucide-react';
 
-const Navbar = () => {
+const Navbar = ({ user, onLogout }) => {
     const navigate = useNavigate(); 
     const [MenuOpen, setMenuOpen] = useState(false);
     const menuref = useRef(null);

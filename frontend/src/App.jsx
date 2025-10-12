@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from './components/Navbar.jsx'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route, useNavigate, Outlet } from 'react-router-dom'
+import Login from './components/Login.jsx'
+import Signup from './components/Signup.jsx'
+import Layout from './components/Layout.jsx'
+
 
 const App = () => {
   const navigate = useNavigate();
@@ -32,13 +36,24 @@ const App = () => {
     setCurrentUser(null);
     navigate('/login', { replace: true });
   }
-  
+
+  const protectedLayout = () => {
+      <Layout user={currentUser} onLogout={handleLogout}>
+        <Outlet />
+      </Layout>
+  }
 
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<div className='fixed inset-0 bg-opacity-50 flex items-center justify-center bg-black'>
+         <Login onsubmit={handleAuthSubmit} onSwitchMode={()=>navigate('/signup')} />
+        </div>} />
+        <Route path="/signup" element={<div className='fixed inset-0 bg-opacity-50 flex items-center justify-center bg-black'>
+         <Signup onsubmit={handleAuthSubmit} onSwitchMode={()=>navigate('/login')} />
+        </div>} />
+        <Route path="/" element={<Layout />} />
       </Routes>
     </>
   )
