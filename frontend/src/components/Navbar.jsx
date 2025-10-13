@@ -4,15 +4,15 @@ import { Settings, Zap, ChevronDown, LogOut } from 'lucide-react';
 
 const Navbar = ({ user, onLogout }) => {
     const navigate = useNavigate(); 
-    const [MenuOpen, setMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuref = useRef(null);
 
     const handleMenuToggle = () => {
-        setMenuOpen((prev) => !prev);
+        setIsMenuOpen((prev) => !prev);
     }
     const handleLogout = () => {
-        setMenuOpen(false);
-        onLogout();
+        setIsMenuOpen(false);
+        onLogout && onLogout();
     };
     return (
         <header className='sticky top-0 bg-white/90 backdrop-blur-md shadow-sm p-4'>
@@ -41,11 +41,11 @@ const Navbar = ({ user, onLogout }) => {
                     <div ref={menuref} className='relative'>
                         <button onClick={handleMenuToggle} className='flex items-center gap-2 px-3 py-2 rounded-full cursor-pointer hover:bg-purple-50 transition-colors duration-300 border border-transparent hover:border-purple-200'>
                             <div className='relative w-8 h-8'>
-                                {user.avatar ? (
+                                {user?.avatar ? (
                                     <img src={user.avatar} alt="Avatar" className='w-9 h-9 rounded-full shadow-sm' />
                                 ) : (
-                                    <div className='w-8 h-8 items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white font-semibold shadow-md' >
-                                        {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                                    <div className='w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white font-semibold shadow-md' >
+                                        {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
                                     </div>
                                 )}
 
@@ -53,8 +53,8 @@ const Navbar = ({ user, onLogout }) => {
                             </div>
 
                             <div className='text-left hidden md:block'>
-                                <p className='text-sm font-medium text-gray-800'>{user.name}</p>
-                                <p className='text-xs text-gray-500 font-normal'>{user.email}</p>
+                                <p className='text-sm font-medium text-gray-800'>{user?.name || 'User'}</p>
+                                <p className='text-xs text-gray-500 font-normal'>{user?.email || ''}</p>
                             </div>
 
                             <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${isMenuOpen ? 'rotate-180' : ''}`} />

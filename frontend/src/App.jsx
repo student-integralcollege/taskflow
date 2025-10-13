@@ -53,7 +53,8 @@ const App = () => {
         <Route path="/signup" element={<div className='fixed inset-0 bg-opacity-50 flex items-center justify-center bg-black'>
          <Signup onsubmit={handleAuthSubmit} onSwitchMode={()=>navigate('/login')} />
         </div>} />
-        <Route path="/" element={<Layout />} />
+        <Route path="/" element={<Layout user={currentUser} onLogout={handleLogout} />} />
+        <Route path="/profile" element={<Layout user={currentUser} onLogout={handleLogout} />} />
       </Routes>
     </>
   )
