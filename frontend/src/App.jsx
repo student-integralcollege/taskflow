@@ -45,10 +45,9 @@ const App = () => {
 
   return (
     <>
-      <Navbar />
       <Routes>
         <Route path="/login" element={<div className='fixed inset-0 bg-opacity-50 flex items-center justify-center bg-black'>
-         <Login onsubmit={handleAuthSubmit} onSwitchMode={()=>navigate('/signup')} />
+         <Login onSubmit={handleAuthSubmit} onSwitchMode={()=>navigate('/signup')} />
         </div>} />
         <Route path="/signup" element={<div className='fixed inset-0 bg-opacity-50 flex items-center justify-center bg-black'>
          <Signup onsubmit={handleAuthSubmit} onSwitchMode={()=>navigate('/login')} />
