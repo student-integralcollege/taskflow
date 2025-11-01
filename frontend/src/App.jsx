@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from './components/Navbar.jsx'
-import { Routes, Route, useNavigate, Outlet } from 'react-router-dom'
+import { Routes, Route, useNavigate, Outlet, Navigate } from 'react-router-dom'
 import Login from './components/Login.jsx'
 import Signup from './components/Signup.jsx'
 import Layout from './components/Layout.jsx'
+import Dashboard from './pages/Dashboard.jsx' 
 
 
 const App = () => {
@@ -37,14 +38,13 @@ const App = () => {
     navigate('/login', { replace: true });
   }
 
-  const protectedLayout = () => {
+  const protectedLayout = () => (
       <Layout user={currentUser} onLogout={handleLogout}>
         <Outlet />
       </Layout>
-  }
+  )
 
   return (
-    <>
       <Routes>
         <Route path="/login" element={<div className='fixed inset-0 bg-opacity-50 flex items-center justify-center bg-black'>
          <Login onSubmit={handleAuthSubmit} onSwitchMode={()=>navigate('/signup')} />
@@ -52,10 +52,15 @@ const App = () => {
         <Route path="/signup" element={<div className='fixed inset-0 bg-opacity-50 flex items-center justify-center bg-black'>
          <Signup onsubmit={handleAuthSubmit} onSwitchMode={()=>navigate('/login')} />
         </div>} />
-        <Route path="/" element={<Layout user={currentUser} onLogout={handleLogout} />} />
-        <Route path="/profile" element={<Layout user={currentUser} onLogout={handleLogout} />} />
+
+        <Route path="/" element={currentUser ? <protectedLayout/> :
+         <Navigate to="/login" replace />}>
+
+          <Route path="/" element={<Dashboard/>} />
+         </Route>
+
+         <Route path="*" element={<Navigate to={currentUser ? "/" : "/login"} replace />} />
       </Routes>
-    </>
   )
 }
 

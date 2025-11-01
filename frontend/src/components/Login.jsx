@@ -10,7 +10,7 @@ const INITIAL_FORM = { email: "", password: "" }
 
 const fields = [
   { name: 'email', type: 'email', placeholder: 'Email', icon: Mail },
-  { name: 'password', type: 'password', placeholder: 'Password', icon: Lock },
+  { name: 'password', type: 'password', placeholder: 'Password', icon: Lock, isPassword: true },
 ]
 
 const Login = ({ onSubmit, onSwitchMode }) => {
@@ -22,10 +22,31 @@ const Login = ({ onSubmit, onSwitchMode }) => {
   const url = 'http://localhost:4000'
 
   useEffect(() => {
-    // If already logged in, navigate home
     const token = localStorage.getItem('token')
-    if (token) navigate('/')
-  }, [navigate])
+    const userId = localStorage.getItem('userId')
+    if (token) {
+      (async () => {
+        try {
+          const { data } = await axios.get(`${url}/api/user/me`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          if (data.success) {
+            onSubmit?.({ token, userId, ...data.user })
+            toast.success("Auto login successful Redirecting...")
+            navigate("/")
+          }
+          else {
+            localStorage.clear()
+          }
+        }
+        catch (error) {
+          localStorage.clear()
+        }
+      })()
+    }
+  }, [navigate, onSubmit])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -37,6 +58,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
     try {
       const { data } = await axios.post(`${url}/api/user/login`, formData)
       if (!data.token) throw new Error(data.message || "Login Failed")
+
       localStorage.setItem("token", data.token)
       localStorage.setItem("userId", data.user.id)
       setFormData(INITIAL_FORM)
@@ -48,7 +70,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
       const msg = error.response?.data?.message || error.message
       toast.error(msg)
     }
-    finally{
+    finally {
       setLoading(false)
     }
   }
@@ -69,12 +91,30 @@ const Login = ({ onSubmit, onSwitchMode }) => {
         <p className='text-gray-500 text-sm mt-1'> Sign in to continue to Taskflow</p>
       </div>
       <form onSubmit={handleSubmit} className='space-y-4'>
-        {fields.map(({ name, type, placeholder, icon: Icon }) => (
-          <div key={name} className={INPUTWRAPPER}>
-            <Icon className='text-purple-500 w-5 h-5 ' />
-            <input type={type} placeholder={placeholder} value={formData[name]} onChange={(e) => setFormData({ ...formData, [name]: e.target.value })} className='w-full focus:outline-none text-sm text-gray-700' required />
-          </div>
-        ))}
+        {fields.map(({ name, type, placeholder, icon: Icon, isPassword }) => {
+          return (
+            <div key={name} className={INPUTWRAPPER}>
+              <Icon className='text-purple-500 w-5 h-5 ' />
+              <input
+                type={isPassword ? (showPassword ? 'text' : 'password') : type}
+                placeholder={placeholder}
+                value={formData[name]}
+                onChange={(e) => setFormData({ ...formData, [name]: e.target.value })}
+                className='w-full focus:outline-none text-sm text-gray-700'
+                required
+              />
+              {isPassword && (
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(s => !s)}
+                  className='ml-2 text-gray-500 hover:text-purple-500 transitions-color'
+                >
+                  {showPassword ? <EyeOff className='w-5 h-5' /> : <Eye className='w-5 h-5' />}
+                </button>
+              )}
+            </div>
+          )
+        })}
 
         <div className='flex items-center'>
           <input type="checkbox" id='rememberMe' checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} className='h-4 w-4 text-purple-500 focus:ring-purple-400 border-gray-300 rounded' required />
