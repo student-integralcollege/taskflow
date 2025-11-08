@@ -3,7 +3,7 @@ import { UserPlus } from 'lucide-react'
 import { BUTTONCLASSES, Inputwrapper, FIELDS, MESSAGE_ERROR, MESSAGE_SUCCESS } from '../assets/dummy'
 import axios from 'axios'
 
-const API_URL = "http://localhost:4000"
+const API_URL = "http://localhost:5000"
 const INITIAL_FORM = { name: "", email: "", password: "" }
 
 const Signup = ({ onSwitchMode }) => {
@@ -12,7 +12,7 @@ const Signup = ({ onSwitchMode }) => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState({ text: "", type: "" });
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
         setMessage({ text: "", type: "" })
