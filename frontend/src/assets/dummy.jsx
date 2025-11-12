@@ -1,7 +1,7 @@
 import {
     User, Mail, Home,
     ListChecks,
-    CheckCircle2, Lock, Home as HomeIcon, Flame,
+    CheckCircle2, Lock, Flame,
     SortDesc, SortAsc, Award,
     Edit2,
     Trash2,
@@ -179,10 +179,10 @@ export const LABEL_CLASS = "text-xs text-gray-500 truncate"
 
 // Stats definitions
 export const STATS = [
-    { key: "total", label: "Total Tasks", icon: HomeIcon, iconColor: "bg-purple-100 text-purple-600", valueKey: "total", gradient: true },
-    { key: "lowPriority", label: "Low Priority", icon: Flame, iconColor: "bg-green-100 text-green-600", borderColor: "border-green-100", valueKey: "lowPriority", textColor: "text-green-600" },
-    { key: "mediumPriority", label: "Medium Priority", icon: Flame, iconColor: "bg-orange-100 text-orange-600", borderColor: "border-orange-100", valueKey: "mediumPriority", textColor: "text-orange-600" },
-    { key: "highPriority", label: "High Priority", icon: Flame, iconColor: "bg-red-100 text-red-600", borderColor: "border-red-100", valueKey: "highPriority", textColor: "text-red-600" },
+    { key: "total", label: "Total Tasks", Icon: Home, iconColor: "bg-purple-100 text-purple-600", valueKey: "total", gradient: true },
+    { key: "lowPriority", label: "Low Priority", Icon: Flame, iconColor: "bg-green-100 text-green-600", borderColor: "border-green-100", valueKey: "lowPriority", textColor: "text-green-600" },
+    { key: "mediumPriority", label: "Medium Priority", Icon: Flame, iconColor: "bg-orange-100 text-orange-600", borderColor: "border-orange-100", valueKey: "mediumPriority", textColor: "text-orange-600" },
+    { key: "highPriority", label: "High Priority", Icon: Flame, iconColor: "bg-red-100 text-red-600", borderColor: "border-red-100", valueKey: "highPriority", textColor: "text-red-600" },
 ]
 
 // Filter options
