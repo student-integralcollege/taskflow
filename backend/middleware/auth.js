@@ -9,6 +9,7 @@ export default async function authmiddleware(req, res, next) {
         return res.status(401).json({ message: 'Not Authorized token is missing' });
     }
     const token = authHeader.split(' ')[1];
+    
     try {
         const payload = jwt.verify(token, JWT_SECRET);
         const foundUser = await User.findById(payload.id).select('-password');
