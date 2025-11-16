@@ -6,6 +6,7 @@ import { useCallback } from 'react';
 const API_BASE = 'http://localhost:5000/api/task';
 
 const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
+
     const [taskData, setTaskData] = useState(DEFAULT_TASK);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -14,7 +15,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
     useEffect(() => {
         if (!isOpen) return;
         if (taskToEdit) {
-            const normalized = taskToEdit.completed === 'yes' || taskToEdit.completed === true ? 'Yes' : 'No';
+            const normalized = taskToEdit.completed === 'Yes' || taskToEdit.completed === true ? 'Yes' : 'No';
             setTaskData({
                 ...DEFAULT_TASK,
                 title: taskToEdit.title || '',
@@ -36,14 +37,16 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
         setTaskData((prev) => ({ ...prev, [name]: value, }));
     }, []);
 
-    const getHeaders = useCallback(() => {
-        const token = localStorage.getItem('token');
-        if(!token) throw new Error('No auth Token Found')
+    const getHeaders = () => {
+        const token = localStorage.getItem("token"); 
+        if (!token) {
+            console.warn(" No auth token found");
+        }
         return {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
         };
-    }, []);
+    };
 
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault();

@@ -9,7 +9,8 @@ const Sidebar = ({ user, tasks}) => {
 
   const totalTasks = tasks?.length || 0
   const completedTasks = tasks?.filter((t) => t.completed).length || 0
-  const productivity = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0
+  const productivity = totalTasks > 0
+  ? Math.round((completedTasks / totalTasks) * 100) : 0
   const username = user?.name || 'User'
   const initial = username.charAt(0).toUpperCase()
 
@@ -30,9 +31,7 @@ const Sidebar = ({ user, tasks}) => {
               LINK_CLASSES.base,
               isActive ? LINK_CLASSES.active : LINK_CLASSES.inactive,
               ismobile ? "justify-start" : "lg:justify-start"
-            ].join(' ')}
-            onClick={() => setMobileOpen(false)}
-          >
+            ].join(' ')} onClick={() => setMobileOpen(false)}>
             <span className={LINK_CLASSES.icon}>{icon}</span>
             <span className={` ${ismobile ? 'block' : 'hidden lg:block'} ${LINK_CLASSES.text}`}>{text}</span>
           </NavLink>
@@ -77,6 +76,7 @@ const Sidebar = ({ user, tasks}) => {
                 <div className={TIP_CARD.iconWrapper}>
                   <Lightbulb className='w-5 h-5 text-purple-600' />
                 </div>
+                
                 <div>
                   <h3 className={TIP_CARD.title}>Pro Tip</h3>
                   <p className={TIP_CARD.text}>Use keyboard shortcuts to boost your productivity!</p>

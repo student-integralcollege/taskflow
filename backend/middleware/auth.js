@@ -8,15 +8,25 @@ export default async function authmiddleware(req, res, next) {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ message: 'Not Authorized token is missing' });
     }
+
     const token = authHeader.split(' ')[1];
-    
+
     try {
         const payload = jwt.verify(token, JWT_SECRET);
+
         const foundUser = await User.findById(payload.id).select('-password');
+
         if (!foundUser) {
             return res.status(401).json({ message: 'Not Authorized user not found' });
         }
-        req.user = foundUser;
+
+        // Fix: Ensure req.user.id exists
+        req.user = {
+            id: foundUser._id.toString(),
+            username: foundUser.username,
+            email: foundUser.email
+        };
+
         next();
     } catch (err) {
         console.error(err);

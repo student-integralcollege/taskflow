@@ -6,7 +6,7 @@ import TaskItem from '../components/TaskItem.jsx'
 import TaskModal from '../components/TaskModal.jsx'
 import axios from 'axios'
 
-const API_BASE = 'http://localhost:5000/api/tasks'
+const API_BASE = 'http://localhost:5000/api/task'
 
 const Dashboard = () => {
   const { tasks, refreshTasks } = useOutletContext();
@@ -159,7 +159,6 @@ const Dashboard = () => {
 
       {/* MODAL */}
       <TaskModal isOpen={showmodal || !!selectedTask} onClose={() => { setShowmodal(false); setSelectedTask(null) }} taskToEdit={selectedTask} onSave={handleTaskSave} />
-
     </div>
   )
 }

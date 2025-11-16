@@ -25,7 +25,7 @@ const Profile = ({ setCurrentUser, onLogout }) => {
             if (data.success) {
                 setProfile({ name: data.user.name, email: data.user.email });
             } else {
-                toast.error(data.message || 'Failed to load profile');
+                toast.error(data.message);
             }
         }).catch(() => toast.error("Failed to fetch profile."));
     }, [])

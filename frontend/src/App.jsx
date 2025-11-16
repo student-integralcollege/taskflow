@@ -30,11 +30,12 @@ const App = () => {
       avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || 'User')}&background=random`,
     };
     setCurrentUser(user);
-    navigate('/', { replace: true });
+    navigate('/', {replace: true})
   };
 
+
   const handleLogout = () => {
-    localStorage.removeItem('currentuser');
+    localStorage.removeItem('token');
     setCurrentUser(null);
     navigate('/login', { replace: true });
   };
@@ -65,16 +66,13 @@ const App = () => {
         }
       />
 
-      <Route
-        path="/"
-        element={currentUser ? <ProtectedLayout /> : <Navigate to="/login" replace />}
-      >
-      <Route path='/' element={<Dashboard />} />
-      <Route path='/pending' element={<PendingPage />} />
-      <Route path='/complete' element={<CompletePage />} />
-      <Route path='/profile' element={<Profile user={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout} />} />
+      <Route element={currentUser ? <ProtectedLayout /> : <Navigate to="/login" replace />}>
+        <Route path='/' element={<Dashboard />} />
+        <Route path='/pending' element={<PendingPage />} />
+        <Route path='/complete' element={<CompletePage />} />
+        <Route path='/profile' element={<Profile user={currentUser} setCurrentUser={setCurrentUser} onLogout={handleLogout} />} />
       </Route>
-
+      
       <Route path="*" element={<Navigate to={currentUser ? '/' : '/login'} replace />} />
     </Routes>
   );
