@@ -61,7 +61,7 @@ export const DEFAULT_TASK = {
     description: "",
     priority: "Low",
     dueDate: "",
-    completed: "No",
+    completed: "no",
     id: null,
 };
 

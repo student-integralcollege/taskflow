@@ -156,7 +156,6 @@ const Dashboard = () => {
           <span className='text-gray-600 font-medium'>Add New Task</span>
         </div>
       </div>
-
       {/* MODAL */}
       <TaskModal isOpen={showmodal || !!selectedTask} onClose={() => { setShowmodal(false); setSelectedTask(null) }} taskToEdit={selectedTask} onSave={handleTaskSave} />
     </div>

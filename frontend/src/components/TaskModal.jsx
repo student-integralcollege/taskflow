@@ -15,7 +15,7 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
     useEffect(() => {
         if (!isOpen) return;
         if (taskToEdit) {
-            const normalized = taskToEdit.completed === 'Yes' || taskToEdit.completed === true ? 'Yes' : 'No';
+            const normalized = taskToEdit.completed === 'Yes' || taskToEdit.completed === true ? 'yes' : 'no';
             setTaskData({
                 ...DEFAULT_TASK,
                 title: taskToEdit.title || '',
@@ -37,16 +37,17 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
         setTaskData((prev) => ({ ...prev, [name]: value, }));
     }, []);
 
-    const getHeaders = () => {
-        const token = localStorage.getItem("token"); 
+    const getHeaders = useCallback(() => {
+        const token = localStorage.getItem("token");
         if (!token) {
-            console.warn(" No auth token found");
+            console.warn("No auth token found");
+            return null;
         }
         return {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
         };
-    };
+    }, []);
 
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
@@ -59,14 +60,16 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
         try {
             const isEdit = Boolean(taskData.id);
             const url = isEdit ? `${API_BASE}/${taskData.id}/gp` : `${API_BASE}/gp`;
+            const headers = getHeaders();
             const resp = await fetch(url, {
                 method: isEdit ? 'PUT' : 'POST',
-                headers: getHeaders(),
+                headers,
                 body: JSON.stringify(taskData),
             });
             if (!resp.ok) {
                 if (resp.status === 401) {
-                    return onLogout?.();
+                    onLogout?.();
+                    return;
                 }
                 const err = await resp.json();
                 throw new Error(err.message || 'failed to save task');
