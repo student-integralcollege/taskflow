@@ -130,47 +130,47 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
                             </label>
                             <select name="priority" value={taskData.priority} onChange={handleChange}
                                 className={`${baseControlClasses} ${priorityStyles[taskData.priority]}`}>
-                                <option >Low</option>
-                                <option >Medium</option>
-                                <option >High</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
                             </select>
-                        </div>
-
-                        <div>
-                            <label className='flex items-center gap-1 text-sm text-gray-700 font-medium mb-1'>
-                                <Calendar className='w-4 h-4 text-purple-500' /> Due Date
-                            </label>
-                            <input type="date" name="dueDate" value={taskData.dueDate} onChange={handleChange}
-                                className={`${baseControlClasses}`} />
-                        </div>
                     </div>
 
                     <div>
-                        <label className='flex items-center gap-1 text-sm text-gray-700 font-medium mb-2'>
-                            <CheckCircle className='w-4 h-4 text-purple-500' /> Status
+                        <label className='flex items-center gap-1 text-sm text-gray-700 font-medium mb-1'>
+                            <Calendar className='w-4 h-4 text-purple-500' /> Due Date
                         </label>
-                        <div className='flex gap-4'>
-                            {[{ val: 'yes', label: 'Completed', icon: Check }, { val: 'no', label: 'In Progress', icon: null }].map(({ val, label }) => (
-                                <label key={val} className='flex items-center'>
-                                    <input type="radio" name="completed" value={val} checked={taskData.completed === val} onChange={handleChange}
-                                        className='h-4 w-4 text-purple-600 focus:ring-purple-500 rounded' />
-                                    <span className='ml-2 text-sm text-gray-700'>{label}</span>
-                                </label>
-                            ))}
-                        </div>
+                        <input type="date" name="dueDate" value={taskData.dueDate} onChange={handleChange}
+                            className={`${baseControlClasses}`} />
                     </div>
-
-                    <button type='submit' disabled={loading}
-                        className='w-full bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 hover:shadow-md transition-all duration-200'>
-                        {loading ? 'Saving...' : (taskData.id ? <>
-                            <Save className='w-4 h-4' /> Update Task
-                        </> : <>
-                            <PlusCircle className='w-4 h-4' /> Create Task
-                        </>)}
-                    </button>
-                </form>
             </div>
-        </div>
+
+            <div>
+                <label className='flex items-center gap-1 text-sm text-gray-700 font-medium mb-2'>
+                    <CheckCircle className='w-4 h-4 text-purple-500' /> Status
+                </label>
+                <div className='flex gap-4'>
+                    {[{ val: 'yes', label: 'Completed', icon: Check }, { val: 'no', label: 'In Progress', icon: null }].map(({ val, label }) => (
+                        <label key={val} className='flex items-center'>
+                            <input type="radio" name="completed" value={val} checked={taskData.completed === val} onChange={handleChange}
+                                className='h-4 w-4 text-purple-600 focus:ring-purple-500 rounded' />
+                            <span className='ml-2 text-sm text-gray-700'>{label}</span>
+                        </label>
+                    ))}
+                </div>
+            </div>
+
+            <button type='submit' disabled={loading}
+                className='w-full bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 hover:shadow-md transition-all duration-200'>
+                {loading ? 'Saving...' : (taskData.id ? <>
+                    <Save className='w-4 h-4' /> Update Task
+                </> : <>
+                    <PlusCircle className='w-4 h-4' /> Create Task
+                </>)}
+            </button>
+        </form>
+            </div >
+        </div >
     )
 }
 
