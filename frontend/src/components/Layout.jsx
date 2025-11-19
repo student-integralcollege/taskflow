@@ -26,7 +26,8 @@ const Layout = ({ user, onLogout }) => {
                 }
             });
             const arr = Array.isArray(data) ? data :
-                Array.isArray(data?.data) ? data.data : [];
+                Array.isArray(data?.tasks) ? data.tasks :
+                    Array.isArray(data?.data) ? data.data : [];
             setTasks(arr);
         } catch (err) {
             console.error(err);
@@ -145,10 +146,10 @@ const Layout = ({ user, onLogout }) => {
                                     <div key={task._id || task.id} className='flex items-center justify-between p-2 sm:p-3 hover:bg-purple-50/50 rounded-lg transition-colors duration-200 border border-transparent hover:border-purple-100'>
                                         <div className='flex-1 min-w-0'>
                                             <p className='text-sm font-medium text-gray-700 break-words whitespace-normal'>
-                                               {task.title}
+                                                {task.title}
                                             </p>
                                             <p className='text-xs text-gray-500 mt-0.5'>
-                                               {task.createdAt ? new Date(task.createdAt).toLocaleDateString() : 'No date'}
+                                                {task.createdAt ? new Date(task.createdAt).toLocaleDateString() : 'No date'}
                                             </p>
                                         </div>
                                         <span className={`px-2 py-1 text-xs rounded-full shrink-0 ml-2 ${task.completed ? 'bg-green-100 text-green-700' : 'bg-fuchsia-100 text-fuchsia-700'}`}>
@@ -156,11 +157,11 @@ const Layout = ({ user, onLogout }) => {
                                         </span>
                                     </div>
                                 ))}
-                                    
+
                                 {tasks.length === 0 && (
                                     <div className='text-center py-4 sm:py-6 px-2'>
                                         <div className='w-12 h-12 sm:w-16 sm:h-16 mx-auto sm:mb-4 rounded-full bg-purple-100 flex items-center justify-center'>
-                                         <Clock className='w-6 h-6 sm:w-8 sm:h-8 text-purple-500'/>
+                                            <Clock className='w-6 h-6 sm:w-8 sm:h-8 text-purple-500' />
                                         </div>
                                         <p className='text-sm text-gray-500'>
                                             No recent activity
