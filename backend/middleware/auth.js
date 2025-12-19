@@ -19,8 +19,7 @@ export default async function authmiddleware(req, res, next) {
         if (!foundUser) {
             return res.status(401).json({ message: 'Not Authorized user not found' });
         }
-
-        // Fix: Ensure req.user.id exists
+        
         req.user = {
             id: foundUser._id.toString(),
             username: foundUser.username,

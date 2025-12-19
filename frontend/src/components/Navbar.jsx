@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Settings, Zap, ChevronDown, LogOut } from 'lucide-react';
 
@@ -6,6 +6,18 @@ const Navbar = ({ user, onLogout }) => {
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuref = useRef(null);
+       
+     useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuref.current && !menuref.current.contains(event.target)) {
+                setIsMenuOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const handleMenuToggle = () => {
         setIsMenuOpen((prev) => !prev);
