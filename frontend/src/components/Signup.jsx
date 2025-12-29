@@ -3,7 +3,7 @@ import { UserPlus } from 'lucide-react'
 import { BUTTONCLASSES, Inputwrapper, FIELDS, MESSAGE_ERROR, MESSAGE_SUCCESS } from '../assets/dummy'
 import axios from 'axios'
 
-const API_URL = "http://localhost:5000"
+const API_URL = "https://taskflow-o5yh.vercel.app"
 const INITIAL_FORM = { name: "", email: "", password: "" }
 
 const Signup = ({ onSwitchMode }) => {

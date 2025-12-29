@@ -37,14 +37,14 @@ const PendingPage = () => {
   }
   const handleDelete = async (id) => {
     const headers = getHeaders(); if (!headers) return;
-    await fetch(`http://localhost:5000/api/tasks/${id}`, { method: 'DELETE', headers });
+    await fetch(`https://taskflow-o5yh.vercel.app/api/tasks/${id}`, { method: 'DELETE', headers });
     refreshTasks?.();
   }
   const handleToggleComplete = async (id, current) => {
     const headers = getHeaders(); if (!headers) return;
     const isCompleted = [true, 1, 'yes'].includes(typeof current === 'string' ? current.toLowerCase() : current);
     const newStatus = isCompleted ? 'No' : 'Yes';
-    await fetch(`http://localhost:5000/api/tasks/${id}`, { method: 'PUT', headers, body: JSON.stringify({ completed: newStatus }) });
+    await fetch(`https://taskflow-o5yh.vercel.app/api/tasks/${id}`, { method: 'PUT', headers, body: JSON.stringify({ completed: newStatus }) });
     refreshTasks?.();
   }
 

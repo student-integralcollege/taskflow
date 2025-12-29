@@ -6,7 +6,7 @@ import TaskItem from '../components/TaskItem.jsx'
 import TaskModal from '../components/TaskModal.jsx'
 import axios from 'axios'
 
-const API_BASE = 'http://localhost:5000/api/task'
+const API_BASE = 'https://taskflow-o5yh.vercel.app/api/task'
 
 const Dashboard = () => {
   const { tasks, refreshTasks } = useOutletContext();

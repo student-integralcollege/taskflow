@@ -5,7 +5,7 @@ import { CheckCircle2, Clock, MoreVertical, Calendar } from 'lucide-react'
 import { format, isToday } from 'date-fns'
 import TaskModal from './TaskModal'
 
-const API_BASE = 'http://localhost:5000/api/task'
+const API_BASE = 'https://taskflow-o5yh.vercel.app/api/task'
 
 const TaskItem = ({ task, onRefresh, onLogout, showCompleteCheckbox = true }) => {
   const taskId = task._id || task.id

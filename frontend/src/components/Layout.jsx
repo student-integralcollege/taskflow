@@ -20,7 +20,7 @@ const Layout = ({ user, onLogout }) => {
                 setTasks([]);
                 return;
             }
-            const { data } = await axios.get('http://localhost:5000/api/task/gp', {
+            const { data } = await axios.get('https://taskflow-o5yh.vercel.app/api/task/gp', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

@@ -6,7 +6,7 @@ import { ChevronLeft, UserCircle, Save, Shield, Lock, LogOut } from 'lucide-reac
 import { useNavigate } from 'react-router-dom'
 
 
-const API_URL = "http://localhost:5000"
+const API_URL = "https://taskflow-o5yh.vercel.app"
 
 const Profile = ({ setCurrentUser, onLogout }) => {
 
