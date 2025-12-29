@@ -7,25 +7,14 @@ import TaskModal from '../components/TaskModal.jsx';
 
 const PendingPage = () => {
 
-  const { task = [], refreshTasks } = useOutletContext();
-  const [sortby, setsortby] = useState('newest');
-  const [selectedTask, setSelectedTask] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-
-  const getHeaders = () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.warn("No auth token found");
-      return null;
-    }
-    return {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
-    };
-  }
+  // read tasks array the layout provides (name: tasks)
+  const { tasks = [], refreshTasks } = useOutletContext() || {};
+   const [sortby, setsortby] = useState('newest');
+   const [selectedTask, setSelectedTask] = useState(null);
+   const [showModal, setShowModal] = useState(false);
 
   const sortPendingTasks = useMemo(() => {
-    const filtered = task.filter(
+    const filtered = (tasks || []).filter(
       (t) => !t.completed || (typeof t.completed === 'string' && t.completed.toLowerCase() === 'no')
     );
     return filtered.sort((a, b) => {
@@ -38,7 +27,26 @@ const PendingPage = () => {
       const order = { high: 3, medium: 2, low: 1 };
       return order[b.priority?.toLowerCase()] - order[a.priority?.toLowerCase()];
     });
-  }, [task, sortby]);
+  }, [tasks, sortby]);
+  
+  // minimal handlers used by TaskItem map (prevent undefined reference errors)
+  const getHeaders = () => {
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+    return { "Content-Type": "application/json", "Authorization": `Bearer ${token}` };
+  }
+  const handleDelete = async (id) => {
+    const headers = getHeaders(); if (!headers) return;
+    await fetch(`http://localhost:5000/api/tasks/${id}`, { method: 'DELETE', headers });
+    refreshTasks?.();
+  }
+  const handleToggleComplete = async (id, current) => {
+    const headers = getHeaders(); if (!headers) return;
+    const isCompleted = [true, 1, 'yes'].includes(typeof current === 'string' ? current.toLowerCase() : current);
+    const newStatus = isCompleted ? 'No' : 'Yes';
+    await fetch(`http://localhost:5000/api/tasks/${id}`, { method: 'PUT', headers, body: JSON.stringify({ completed: newStatus }) });
+    refreshTasks?.();
+  }
 
   return (
     <div className={layoutClasses.container}>
