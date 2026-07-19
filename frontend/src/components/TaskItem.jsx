@@ -4,8 +4,9 @@ import { getPriorityBadgeColor, getPriorityColor, MENU_OPTIONS, TI_CLASSES } fro
 import { CheckCircle2, Clock, MoreVertical, Calendar } from 'lucide-react'
 import { format, isToday } from 'date-fns'
 import TaskModal from './TaskModal'
+import { API_URL } from '../config'
 
-const API_BASE = 'https://taskflow-o5yh.vercel.app/api/task'
+const API_BASE = `${API_URL}/api/task`
 
 const TaskItem = ({ task, onRefresh, onLogout, showCompleteCheckbox = true }) => {
   const taskId = task._id || task.id

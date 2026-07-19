@@ -29,24 +29,7 @@ const PendingPage = () => {
     });
   }, [tasks, sortby]);
   
-  // minimal handlers used by TaskItem map (prevent undefined reference errors)
-  const getHeaders = () => {
-    const token = localStorage.getItem("token");
-    if (!token) return null;
-    return { "Content-Type": "application/json", "Authorization": `Bearer ${token}` };
-  }
-  const handleDelete = async (id) => {
-    const headers = getHeaders(); if (!headers) return;
-    await fetch(`https://taskflow-o5yh.vercel.app/api/tasks/${id}`, { method: 'DELETE', headers });
-    refreshTasks?.();
-  }
-  const handleToggleComplete = async (id, current) => {
-    const headers = getHeaders(); if (!headers) return;
-    const isCompleted = [true, 1, 'yes'].includes(typeof current === 'string' ? current.toLowerCase() : current);
-    const newStatus = isCompleted ? 'No' : 'Yes';
-    await fetch(`https://taskflow-o5yh.vercel.app/api/tasks/${id}`, { method: 'PUT', headers, body: JSON.stringify({ completed: newStatus }) });
-    refreshTasks?.();
-  }
+
 
   return (
     <div className={layoutClasses.container}>
@@ -119,8 +102,6 @@ const PendingPage = () => {
               key={task.id || task._id}
               task={task}
               showCompleteCheckbox
-              onDelete={() => handleDelete(task.id || task._id)}
-              onToggleComplete={() => handleToggleComplete(task.id || task._id, task.completed)}
               onEdit={() => {
                 setSelectedTask(task);
                 setShowModal(true);

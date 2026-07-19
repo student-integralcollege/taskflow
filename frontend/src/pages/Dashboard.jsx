@@ -5,8 +5,9 @@ import { useOutletContext } from 'react-router-dom'
 import TaskItem from '../components/TaskItem.jsx'
 import TaskModal from '../components/TaskModal.jsx'
 import axios from 'axios'
+import { API_URL } from '../config'
 
-const API_BASE = 'https://taskflow-o5yh.vercel.app/api/task'
+const API_BASE = `${API_URL}/api/task`
 
 const Dashboard = () => {
   const { tasks, refreshTasks } = useOutletContext();

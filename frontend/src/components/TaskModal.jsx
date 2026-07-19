@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { baseControlClasses, DEFAULT_TASK, priorityStyles } from '../assets/dummy';
 import { AlignLeft, Check, CheckCircle, PlusCircle, Save, X, Flag, Calendar } from 'lucide-react';
 import { useCallback } from 'react';
+import { API_URL } from '../config';
 
-const API_BASE = 'https://taskflow-o5yh.vercel.app/api/task';
+const API_BASE = `${API_URL}/api/task`;
 
 const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
 

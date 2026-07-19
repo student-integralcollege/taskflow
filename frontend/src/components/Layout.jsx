@@ -4,6 +4,8 @@ import Sidebar from './sidebar'
 import { Clock, Zap, TrendingUp, Circle } from 'lucide-react'
 import { Outlet } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from '../config';
+
 
 const Layout = ({ user, onLogout }) => {
 
@@ -20,7 +22,7 @@ const Layout = ({ user, onLogout }) => {
                 setTasks([]);
                 return;
             }
-            const { data } = await axios.get('https://taskflow-o5yh.vercel.app/api/task/gp', {
+            const { data } = await axios.get(`${API_URL}/api/task/gp`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
