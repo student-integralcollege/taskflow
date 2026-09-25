@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { CT_CLASSES, SORT_OPTIONS } from '../assets/dummy'
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Filter } from 'lucide-react';
 import { useOutletContext } from 'react-router-dom';
 import TaskItem from '../components/TaskItem.jsx';
 
@@ -46,7 +46,7 @@ const CompletePage = () => {
         <div className={CT_CLASSES.sortContainer}>
           <div className={CT_CLASSES.sortBox}>
             <div className={CT_CLASSES.filterLabel}>
-               <filter className='w-4 h-4 text-purple-500' />
+               <Filter className='w-4 h-4 text-purple-500' />
                <span className='text-xs md:text-sm'>Sort by:</span>
             </div>
             {/* Dropdown to select sort option */}

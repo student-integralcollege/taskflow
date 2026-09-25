@@ -5,7 +5,6 @@ import { LINK_CLASSES, menuItems, PRODUCTIVITY_CARD, SIDEBAR_CLASSES, TIP_CARD }
 
 const Sidebar = ({ user, tasks}) => {
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [showModal, setShowModal] = useState(false)
 
   const totalTasks = tasks?.length || 0
   const completedTasks = tasks?.filter((t) => t.completed).length || 0

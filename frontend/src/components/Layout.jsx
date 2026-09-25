@@ -79,11 +79,11 @@ const Layout = ({ user, onLogout }) => {
     )
 
     if (error) return (
-        <div className='min-h-screen bg-gray-50 flex items-center justify-center'>
-            <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500'>
-                <p className='font-medium mb-2'> Error loading tasks</p>
-                <p className='text-sm'>{error}</p>
-                <button onClick={fetchTasks} className='mt-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors'>
+        <div className='min-h-screen bg-gray-50 flex items-center justify-center p-4'>
+            <div className='bg-white border border-red-200 rounded-xl p-6 shadow-sm max-w-sm text-center'>
+                <p className='font-semibold text-gray-800 mb-2'>Error loading tasks</p>
+                <p className='text-sm text-red-600 mb-4'>{error}</p>
+                <button onClick={fetchTasks} className='px-4 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors'>
                     Try again
                 </button>
             </div>

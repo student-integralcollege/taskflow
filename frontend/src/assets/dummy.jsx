@@ -10,42 +10,8 @@ import {
     Calendar,
 } from "lucide-react"
 
-// BACKEND TEST 
-// DUMMY DATA
-const backendDummy = [
-    {
-        title: "Buy groceries",
-        description: "Milk, bread, eggs, and spinach",
-        priority: "Low",
-        dueDate: "2025-05-02T18:00:00.000Z",
-        completed: "No"
-    },
-    {
-        "title": "Book dentist appointment",
-        "description": "Routine check-up and cleaning",
-        "priority": "Medium",
-        "dueDate": "2025-05-10T10:00:00.000Z",
-        "completed": true
-    },
-    {
-        "title": "Book dentist appointment",
-        "description": "Routine check-up and cleaning",
-        "priority": "Medium",
-        "dueDate": "2025-05-10T10:00:00.000Z",
-        "completed": true
-    },
-    {
-        "title": "Pay utility bills",
-        "description": "Electricity and water bills for April",
-        "priority": "High",
-        "dueDate": "2025-04-28T12:00:00.000Z",
-        "completed": "Yes"
-    }
-];
+// FORM & UI CONSTANTS
 
-// FRONTEND DUMMY DATA
-
-// assets/formConstants.js
 export const baseControlClasses =
     "w-full px-4 py-2.5 border border-purple-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm";
 
@@ -276,9 +242,6 @@ export const TI_CLASSES = {
     titleBase: "text-base sm:text-lg font-medium truncate",
     priorityBadge: "text-xs px-2 py-0.5 rounded-full shrink-0",
     description: "text-sm text-gray-500 mt-1 truncate",
-    subtasksContainer: "mt-3 sm:mt-4 space-y-2 sm:space-y-3 bg-purple-50/30 p-2 sm:p-3 rounded-lg border border-purple-100",
-    progressBarBg: "h-1.5 bg-purple-100 rounded-full overflow-hidden",
-    progressBarFg: "h-full bg-gradient-to-r from-fuchsia-500 to-purple-600 transition-all duration-300",
     rightContainer: "flex flex-col items-end gap-2 sm:gap-3",
     menuButton: "p-1 sm:p-1.5 hover:bg-purple-100 rounded-lg text-gray-500 hover:text-purple-700 transition-colors duration-200",
     menuDropdown: "absolute right-0 mt-1 w-40 sm:w-48 bg-white border border-purple-100 rounded-xl shadow-lg z-10 overflow-hidden animate-fadeIn",

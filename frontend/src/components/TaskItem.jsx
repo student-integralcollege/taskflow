@@ -17,7 +17,6 @@ const TaskItem = ({ task, onRefresh, onLogout, showCompleteCheckbox = true }) =>
       typeof task.completed === 'string' ? task.completed.toLowerCase() : task.completed)
   )
   const [showEditModal, setShowEditModal] = useState(false)
-  const [subtasks, setSubTasks] = useState(task.subtasks || [])
 
   useEffect(() => {
     setIsCompleted(
