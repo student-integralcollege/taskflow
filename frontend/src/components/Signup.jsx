@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { UserPlus } from 'lucide-react'
 import { BUTTONCLASSES, Inputwrapper, FIELDS, MESSAGE_ERROR, MESSAGE_SUCCESS } from '../assets/dummy'
 import axios from 'axios'
-
 import { API_URL } from '../config'
 
 const INITIAL_FORM = { name: "", email: "", password: "" }

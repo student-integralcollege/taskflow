@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 let isConnected = false;
-
 const DEFAULT_URI = 'mongodb+srv://adeebhussain117:WzwvboVF3ZltP58O@cluster-1.li5ktq8.mongodb.net/db?retryWrites=true&w=majority';
 
 export const connectDB = async () => {
