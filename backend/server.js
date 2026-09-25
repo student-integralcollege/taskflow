@@ -7,15 +7,22 @@ import taskRouter from './routes/taskRoutes.js';
 
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
-//middleware
+// middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//db CONNECT
-connectDB();
+
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (err) {
+        console.error('Database connection error:', err);
+        res.status(500).json({ message: 'Database connection failed', error: err.message });
+    }
+});
 
 // Routes
 app.use('/api/user', userRouter);
@@ -25,6 +32,11 @@ app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
-app.listen( PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
+
+export default app;

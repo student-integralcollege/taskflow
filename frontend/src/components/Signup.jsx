@@ -7,7 +7,7 @@ import { API_URL } from '../config'
 
 const INITIAL_FORM = { name: "", email: "", password: "" }
 
-const Signup = ({ onSwitchMode }) => {
+const Signup = ({ onSubmit, onSwitchMode }) => {
 
     const [formData, setFormData] = useState(INITIAL_FORM);
     const [loading, setLoading] = useState(false);
@@ -20,8 +20,11 @@ const Signup = ({ onSwitchMode }) => {
         try {
             const { data } = await axios.post(`${API_URL}/api/user/register`, formData)
             console.log("Signup Successfull", data);
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("userId", data.user.id || data.user._id);
             setMessage({ text: "Registration successful you can now log in.", type: "success" })
             setFormData(INITIAL_FORM)
+            onSubmit?.({ token: data.token, userId: data.user.id, ...data.user });
         }
         catch (err) {
             console.log("Signup error", err)

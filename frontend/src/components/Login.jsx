@@ -60,7 +60,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
       setTimeout(() => navigate("/"), 1000);
     }
     catch (error) {
-      const msg = error.response?.data?.message || err.message;
+      const msg = error.response?.data?.message || error.message;
       toast.error(msg);
     }
     finally {

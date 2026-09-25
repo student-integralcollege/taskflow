@@ -7,7 +7,7 @@ export const createTask = async (req, res) => {
             title,
             description,
             priority,
-            dueDate,
+            dueDate: dueDate || undefined,
             completed: completed === 'yes' || completed === true,
             owner: req.user.id
         });
@@ -45,8 +45,8 @@ export const getTasks = async (req, res) => {
 
 export const getTaskById = async (req, res) => {
     try {
-        const Task = await task.findOne({ _id: req.params.id, owner: req.user.id });
-        if (!Task) {
+        const foundTask = await task.findOne({ _id: req.params.id, owner: req.user.id });
+        if (!foundTask) {
             return res.status(404).json({
                 success: false,
                 message: 'Task not found'
@@ -54,7 +54,7 @@ export const getTaskById = async (req, res) => {
         }
         res.status(200).json({
             success: true,
-            task
+            task: foundTask
         });
     } catch (error) {
         res.status(500).json({
@@ -71,6 +71,9 @@ export const updateTask = async (req, res) => {
         const data = { ...req.body };
         if (data.completed !== undefined) {
             data.completed = data.completed === 'yes' || data.completed === true;
+        }
+        if (data.dueDate === "") {
+            delete data.dueDate;
         }
         const updated = await task.findOneAndUpdate(
             { _id: req.params.id, owner: req.user.id },

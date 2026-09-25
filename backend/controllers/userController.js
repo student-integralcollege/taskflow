@@ -31,8 +31,8 @@ export async function registerUser(req, res) {
         res.status(201).json({ success: true, token, user: { id: registerUser._id, name: registerUser.name, email: registerUser.email } });
     }
     catch (err) {
-        console.error(err);
-        return res.status(500).json({ message: 'Server error' });
+        console.error('Registration Error:', err);
+        return res.status(500).json({ success: false, message: err.message || 'Server error during registration' });
     }
 }
 
